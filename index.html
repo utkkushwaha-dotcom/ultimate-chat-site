@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultimate Chat - Connect, Chat, Share</title>
+    <title>ChatterSphere - A World of Conversations</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
             --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             --secondary-gradient: linear-gradient(45deg, #ff6b6b, #4ecdc4);
             --accent-gradient: linear-gradient(45deg, #ffeaa7, #fab1a0);
+            --sphere-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #ff6b6b 100%);
             --bg-light: #f8f9fa;
             --bg-dark: #1a1a1a;
             --text-light: #333;
@@ -28,13 +29,13 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--primary-gradient);
+            background: var(--sphere-gradient);
             min-height: 100vh;
             transition: all 0.3s ease;
         }
 
         body.dark-mode {
-            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 50%, #1a1a1a 100%);
         }
 
         .app-container {
@@ -63,11 +64,48 @@
         }
 
         .sidebar-header {
-            background: var(--secondary-gradient);
+            background: var(--sphere-gradient);
             color: white;
-            padding: 20px;
+            padding: 25px 20px;
             text-align: center;
             position: relative;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .sphere-icon {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .app-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .app-tagline {
+            font-size: 14px;
+            opacity: 0.9;
+            font-style: italic;
         }
 
         .theme-toggle {
@@ -102,7 +140,7 @@
             width: 60px;
             height: 60px;
             border-radius: 50%;
-            background: var(--accent-gradient);
+            background: var(--sphere-gradient);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -111,10 +149,11 @@
             color: white;
             cursor: pointer;
             transition: transform 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
         .avatar:hover {
-            transform: scale(1.1);
+            transform: scale(1.1) rotate(5deg);
         }
 
         .username-input {
@@ -147,6 +186,9 @@
             margin-bottom: 15px;
             text-transform: uppercase;
             letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .dark-mode .section-title {
@@ -174,19 +216,25 @@
         }
 
         .room-item.active {
-            background: var(--secondary-gradient);
+            background: var(--sphere-gradient);
             color: white;
+            transform: translateX(5px);
         }
 
         .room-icon {
             width: 35px;
             height: 35px;
             border-radius: 8px;
-            background: var(--accent-gradient);
+            background: var(--sphere-gradient);
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
+            font-size: 16px;
+        }
+
+        .room-item.active .room-icon {
+            background: rgba(255,255,255,0.2);
         }
 
         .room-info {
@@ -219,7 +267,7 @@
         }
 
         .chat-header {
-            background: var(--primary-gradient);
+            background: var(--sphere-gradient);
             color: white;
             padding: 20px;
             display: flex;
@@ -233,6 +281,17 @@
             gap: 15px;
         }
 
+        .chat-room-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
         .chat-stats {
             display: flex;
             gap: 20px;
@@ -243,6 +302,9 @@
             display: flex;
             align-items: center;
             gap: 5px;
+            background: rgba(255,255,255,0.1);
+            padding: 8px 12px;
+            border-radius: 20px;
         }
 
         .chat-messages {
@@ -274,7 +336,7 @@
             width: 35px;
             height: 35px;
             border-radius: 50%;
-            background: var(--accent-gradient);
+            background: var(--sphere-gradient);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -322,7 +384,7 @@
         }
 
         .message.own .message-content {
-            background: var(--secondary-gradient);
+            background: var(--sphere-gradient);
             color: white;
             margin-left: 0;
             margin-right: 45px;
@@ -472,7 +534,7 @@
         .send-btn {
             width: 50px;
             height: 50px;
-            background: var(--secondary-gradient);
+            background: var(--sphere-gradient);
             color: white;
             border: none;
             border-radius: 50%;
@@ -550,6 +612,16 @@
             background: rgba(0,0,0,0.3);
         }
 
+        .welcome-title {
+            font-size: 24px;
+            margin-bottom: 15px;
+            background: var(--sphere-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: bold;
+        }
+
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -609,6 +681,11 @@
                 margin-left: 0;
                 margin-right: 0;
             }
+
+            .chat-stats {
+                flex-direction: column;
+                gap: 5px;
+            }
         }
     </style>
 </head>
@@ -620,8 +697,13 @@
                 <button class="theme-toggle" id="themeToggle">
                     <i class="fas fa-moon"></i>
                 </button>
-                <h2>🌍 Ultimate Chat</h2>
-                <p>Connect with the world</p>
+                <div class="logo">
+                    <div class="sphere-icon">🌐</div>
+                    <div>
+                        <h1 class="app-title">ChatterSphere</h1>
+                        <p class="app-tagline">A world of conversations</p>
+                    </div>
+                </div>
             </div>
 
             <div class="user-profile">
@@ -630,40 +712,50 @@
             </div>
 
             <div class="rooms-section">
-                <div class="section-title">Chat Rooms</div>
+                <div class="section-title">
+                    <i class="fas fa-comments"></i>
+                    Chat Spheres
+                </div>
                 <div class="room-item active" data-room="general">
                     <div class="room-icon">🌍</div>
                     <div class="room-info">
-                        <div class="room-name">General Chat</div>
-                        <div class="room-count"><span id="generalCount">42</span> online</div>
+                        <div class="room-name">Global Sphere</div>
+                        <div class="room-count"><span id="generalCount">42</span> chatting</div>
                     </div>
                 </div>
                 <div class="room-item" data-room="gaming">
                     <div class="room-icon">🎮</div>
                     <div class="room-info">
-                        <div class="room-name">Gaming</div>
-                        <div class="room-count"><span id="gamingCount">28</span> online</div>
+                        <div class="room-name">Gaming Sphere</div>
+                        <div class="room-count"><span id="gamingCount">28</span> chatting</div>
                     </div>
                 </div>
                 <div class="room-item" data-room="music">
                     <div class="room-icon">🎵</div>
                     <div class="room-info">
-                        <div class="room-name">Music</div>
-                        <div class="room-count"><span id="musicCount">35</span> online</div>
+                        <div class="room-name">Music Sphere</div>
+                        <div class="room-count"><span id="musicCount">35</span> chatting</div>
                     </div>
                 </div>
                 <div class="room-item" data-room="tech">
                     <div class="room-icon">💻</div>
                     <div class="room-info">
-                        <div class="room-name">Technology</div>
-                        <div class="room-count"><span id="techCount">19</span> online</div>
+                        <div class="room-name">Tech Sphere</div>
+                        <div class="room-count"><span id="techCount">19</span> chatting</div>
+                    </div>
+                </div>
+                <div class="room-item" data-room="creative">
+                    <div class="room-icon">🎨</div>
+                    <div class="room-info">
+                        <div class="room-name">Creative Sphere</div>
+                        <div class="room-count"><span id="creativeCount">24</span> chatting</div>
                     </div>
                 </div>
                 <div class="room-item" data-room="random">
                     <div class="room-icon">🎲</div>
                     <div class="room-info">
-                        <div class="room-name">Random</div>
-                        <div class="room-count"><span id="randomCount">67</span> online</div>
+                        <div class="room-name">Random Sphere</div>
+                        <div class="room-count"><span id="randomCount">67</span> chatting</div>
                     </div>
                 </div>
             </div>
@@ -673,10 +765,10 @@
         <div class="main-chat">
             <div class="chat-header">
                 <div class="chat-title">
-                    <div class="room-icon">🌍</div>
+                    <div class="chat-room-icon">🌍</div>
                     <div>
-                        <h3 id="currentRoomName">General Chat</h3>
-                        <p id="currentRoomDesc">Welcome to the general discussion room</p>
+                        <h3 id="currentRoomName">Global Sphere</h3>
+                        <p id="currentRoomDesc">Connect with people from around the world</p>
                     </div>
                 </div>
                 <div class="chat-stats">
@@ -693,15 +785,16 @@
 
             <div class="chat-messages" id="chatMessages">
                 <div class="welcome-message">
-                    <h3>🎉 Welcome to Ultimate Chat!</h3>
-                    <p>Connect with people from around the world, join different rooms, react to messages, and have fun!</p>
-                    <p><strong>Features:</strong> Multiple rooms • Message reactions • Dark mode • Private messaging • And more!</p>
+                    <div class="welcome-title">🌐 Welcome to ChatterSphere!</div>
+                    <p><strong>A world of conversations awaits you!</strong></p>
+                    <p>Connect with amazing people, explore different spheres, react to messages, and discover new friendships!</p>
+                    <p><strong>✨ Features:</strong> Multiple chat spheres • Message reactions • Dark/Light mode • Real-time conversations • Global community</p>
                 </div>
             </div>
 
             <div class="chat-input-container">
                 <div class="input-group">
-                    <textarea class="message-input" id="messageInput" placeholder="Type your message..." maxlength="500" rows="1"></textarea>
+                    <textarea class="message-input" id="messageInput" placeholder="Share your thoughts with the sphere..." maxlength="500" rows="1"></textarea>
                     <button class="emoji-btn" id="emojiBtn">😊</button>
                     <div class="emoji-picker" id="emojiPicker"></div>
                 </div>
@@ -713,23 +806,24 @@
     </div>
 
     <script>
-        class UltimateChat {
+        class ChatterSphere {
             constructor() {
                 this.currentRoom = 'general';
-                this.username = localStorage.getItem('chatUsername') || '';
-                this.isDarkMode = localStorage.getItem('darkMode') === 'true';
-                this.messages = JSON.parse(localStorage.getItem('chatMessages') || '{}');
+                this.username = localStorage.getItem('chatterSphereUsername') || '';
+                this.isDarkMode = localStorage.getItem('chatterSphereDarkMode') === 'true';
+                this.messages = JSON.parse(localStorage.getItem('chatterSphereMessages') || '{}');
                 this.onlineUsers = this.generateOnlineUsers();
                 this.messageCount = 1234;
                 
                 this.emojis = ['😀','😃','😄','😁','😆','😅','😂','🤣','😊','😇','🙂','🙃','😉','😌','😍','🥰','😘','😗','😙','😚','😋','😛','😝','😜','🤪','🤨','🧐','🤓','😎','🤩','🥳','😏','😒','😞','😔','😟','😕','🙁','☹️','😣','😖','😫','😩','🥺','😢','😭','😤','😠','😡','🤬','🤯','😳','🥵','🥶','😱','😨','😰','😥','😓','🤗','🤔','🤭','🤫','🤥','😶','😐','😑','😬','🙄','😯','😦','😧','😮','😲','🥱','😴','🤤','😪','😵','🤐','🥴','🤢','🤮','🤧','😷','🤒','🤕'];
                 
                 this.roomData = {
-                    general: { name: 'General Chat', desc: 'Welcome to the general discussion room', icon: '🌍' },
-                    gaming: { name: 'Gaming', desc: 'Discuss your favorite games and find gaming buddies', icon: '🎮' },
-                    music: { name: 'Music', desc: 'Share and discover amazing music', icon: '🎵' },
-                    tech: { name: 'Technology', desc: 'Talk about the latest in tech and programming', icon: '💻' },
-                    random: { name: 'Random', desc: 'Anything goes in this wild room', icon: '🎲' }
+                    general: { name: 'Global Sphere', desc: 'Connect with people from around the world', icon: '🌍' },
+                    gaming: { name: 'Gaming Sphere', desc: 'Discuss games, find teammates, and share gaming moments', icon: '🎮' },
+                    music: { name: 'Music Sphere', desc: 'Share and discover amazing music together', icon: '🎵' },
+                    tech: { name: 'Tech Sphere', desc: 'Explore technology, programming, and innovation', icon: '💻' },
+                    creative: { name: 'Creative Sphere', desc: 'Art, design, writing, and creative inspiration', icon: '🎨' },
+                    random: { name: 'Random Sphere', desc: 'Anything goes in this spontaneous space', icon: '🎲' }
                 };
                 
                 this.initElements();
@@ -777,7 +871,7 @@
                 
                 this.usernameInput.addEventListener('input', (e) => {
                     this.username = e.target.value.trim();
-                    localStorage.setItem('chatUsername', this.username);
+                    localStorage.setItem('chatterSphereUsername', this.username);
                     this.updateAvatar();
                 });
                 
@@ -831,7 +925,7 @@
             }
             
             changeAvatar() {
-                const avatars = ['👤', '😀', '😎', '🤖', '👨', '👩', '🧑', '👦', '👧', '🐱', '🐶', '🦊', '🐼', '🐨', '🦁'];
+                const avatars = ['👤', '😀', '😎', '🤖', '👨', '👩', '🧑', '👦', '👧', '🐱', '🐶', '🦊', '🐼', '🐨', '🦁', '🌟', '⚡', '🔥', '💎', '🚀'];
                 const currentAvatar = this.userAvatar.textContent;
                 let newAvatar;
                 do {
@@ -842,7 +936,7 @@
             
             toggleTheme() {
                 this.isDarkMode = !this.isDarkMode;
-                localStorage.setItem('darkMode', this.isDarkMode);
+                localStorage.setItem('chatterSphereDarkMode', this.isDarkMode);
                 this.loadTheme();
             }
             
@@ -869,7 +963,7 @@
                 const roomInfo = this.roomData[roomId];
                 this.currentRoomName.textContent = roomInfo.name;
                 this.currentRoomDesc.textContent = roomInfo.desc;
-                document.querySelector('.chat-title .room-icon').textContent = roomInfo.icon;
+                document.querySelector('.chat-room-icon').textContent = roomInfo.icon;
                 
                 // Switch room
                 this.currentRoom = roomId;
@@ -883,6 +977,7 @@
                     gaming: Math.floor(Math.random() * 30) + 15,
                     music: Math.floor(Math.random() * 40) + 20,
                     tech: Math.floor(Math.random() * 25) + 10,
+                    creative: Math.floor(Math.random() * 30) + 15,
                     random: Math.floor(Math.random() * 80) + 30
                 };
             }
@@ -934,7 +1029,7 @@
                     this.messages[this.currentRoom] = this.messages[this.currentRoom].slice(-50);
                 }
                 
-                localStorage.setItem('chatMessages', JSON.stringify(this.messages));
+                localStorage.setItem('chatterSphereMessages', JSON.stringify(this.messages));
                 this.renderMessage(message);
                 this.scrollToBottom();
             }
@@ -958,7 +1053,7 @@
                     </div>
                     <div class="message-content">
                         ${this.escapeHtml(message.text)}
-                        <button class="reaction-btn" onclick="chat.addReaction(${message.id})">😊</button>
+                        <button class="reaction-btn" onclick="chatterSphere.addReaction(${message.id})">😊</button>
                     </div>
                     <div class="message-reactions">${reactions}</div>
                 `;
@@ -967,7 +1062,7 @@
             }
             
             addReaction(messageId) {
-                const reactions = ['👍', '❤️', '😂', '😮', '😢', '😡'];
+                const reactions = ['👍', '❤️', '😂', '😮', '😢', '😡', '🔥', '⚡', '🌟', '💎'];
                 const emoji = reactions[Math.floor(Math.random() * reactions.length)];
                 
                 const roomMessages = this.messages[this.currentRoom] || [];
@@ -976,7 +1071,7 @@
                 if (message) {
                     if (!message.reactions) message.reactions = {};
                     message.reactions[emoji] = (message.reactions[emoji] || 0) + 1;
-                    localStorage.setItem('chatMessages', JSON.stringify(this.messages));
+                    localStorage.setItem('chatterSphereMessages', JSON.stringify(this.messages));
                     
                     // Update UI
                     const messageEl = document.querySelector(`[data-message-id="${messageId}"] .message-reactions`);
@@ -1003,9 +1098,9 @@
                 if (roomMessages.length === 0 && !welcomeMsg) {
                     this.chatMessages.innerHTML = `
                         <div class="welcome-message">
-                            <h3>🎉 Welcome to ${this.roomData[this.currentRoom].name}!</h3>
-                            <p>${this.roomData[this.currentRoom].desc}</p>
-                            <p>Start chatting and connect with amazing people!</p>
+                            <div class="welcome-title">🌐 Welcome to ${this.roomData[this.currentRoom].name}!</div>
+                            <p><strong>${this.roomData[this.currentRoom].desc}</strong></p>
+                            <p>Start chatting and connect with amazing people in this sphere!</p>
                         </div>
                     `;
                 } else {
@@ -1018,61 +1113,72 @@
             simulateResponse() {
                 const responses = {
                     general: [
-                        "Hey everyone! How's your day going?",
-                        "Anyone here from Europe?",
-                        "What's the weather like where you are?",
-                        "Just joined! This chat is awesome 😊",
+                        "Hey everyone! How's your day in the sphere? 🌍",
+                        "Anyone here from a different timezone?",
+                        "What's the weather like in your part of the world?",
+                        "Just joined ChatterSphere! This is amazing 😊",
                         "Good morning from Asia! 🌅",
                         "Evening everyone! Hope you're all well 🌙",
-                        "Love meeting new people here!",
+                        "Love this global community! ❤️",
                         "What's everyone up to today?",
-                        "This community is so friendly! ❤️"
+                        "ChatterSphere is bringing the world together! 🌐"
                     ],
                     gaming: [
-                        "Anyone playing the new game that just came out?",
+                        "Anyone playing the new game that just dropped? 🎮",
                         "Looking for teammates for ranked matches!",
-                        "Just got a new high score! 🎮",
+                        "Just got a new high score! 🏆",
                         "What's your favorite gaming platform?",
-                        "Anyone into retro games?",
-                        "Stream starting in 10 minutes!",
-                        "That boss fight was insane! 😱"
+                        "Anyone into retro games? 👾",
+                        "Stream starting in 10 minutes! Come watch!",
+                        "That boss fight was absolutely insane! 😱"
                     ],
                     music: [
-                        "Just discovered this amazing artist! 🎵",
-                        "What genre are you into?",
-                        "Concert was incredible last night!",
+                        "Just discovered this incredible artist! 🎵",
+                        "What genre gets your soul moving?",
+                        "Concert was mind-blowing last night! 🎤",
                         "Anyone know good music for studying?",
-                        "This song gives me chills every time",
-                        "Vinyl or digital? What's your preference?",
-                        "Making a playlist, any suggestions? 🎧"
+                        "This song gives me chills every single time",
+                        "Vinyl or digital? What's your vibe?",
+                        "Making a playlist, any epic suggestions? 🎧"
                     ],
                     tech: [
-                        "Just deployed my new app! 💻",
-                        "Anyone working with AI lately?",
-                        "This new framework is game-changing",
-                        "Debugging is my cardio 😅",
+                        "Just deployed my new app to production! 💻",
+                        "Anyone working with AI/ML lately?",
+                        "This new framework is absolutely game-changing",
+                        "Debugging is basically my cardio now 😅",
                         "Open source contributions are so rewarding",
                         "What's your favorite programming language?",
-                        "The future of tech is so exciting! 🚀"
+                        "The future of tech is incredibly exciting! 🚀"
+                    ],
+                    creative: [
+                        "Just finished my latest artwork! 🎨",
+                        "Anyone else struggling with creative block?",
+                        "This design turned out better than expected!",
+                        "What inspires your creativity?",
+                        "Just started learning digital art 🖌️",
+                        "Photography walk was amazing today! 📸",
+                        "Writing my first novel, wish me luck! ✍️"
                     ],
                     random: [
                         "Random fact: Octopuses have three hearts! 🐙",
-                        "Just had the weirdest dream...",
+                        "Just had the weirdest dream ever...",
                         "Pizza or burgers? The eternal question 🍕",
                         "Why do we park in driveways and drive on parkways?",
                         "Coffee is basically a vegetable, right? ☕",
-                        "Cats or dogs? Let the debate begin! 🐱🐶",
-                        "Life is like a box of chocolates... 🍫"
+                        "Cats or dogs? Let the great debate begin! 🐱🐶",
+                        "Life is like a box of chocolates... 🍫",
+                        "If aliens visited Earth, what would surprise them most?",
+                        "Just realized I've been pronouncing 'epitome' wrong my whole life 😅"
                     ]
                 };
                 
                 const usernames = [
                     "Alex", "Sam", "Jordan", "Casey", "Riley", "Morgan", "Avery", 
                     "Quinn", "Sage", "River", "Phoenix", "Skyler", "Rowan", "Emery",
-                    "Blake", "Cameron", "Drew", "Finley", "Hayden", "Jamie"
+                    "Blake", "Cameron", "Drew", "Finley", "Hayden", "Jamie", "Luna", "Nova"
                 ];
                 
-                const avatars = ['😀', '😎', '🤖', '👨', '👩', '🧑', '👦', '👧', '🐱', '🐶', '🦊', '🐼'];
+                const avatars = ['😀', '😎', '🤖', '👨', '👩', '🧑', '👦', '👧', '🐱', '🐶', '🦊', '🐼', '🌟', '⚡', '🔥', '💎'];
                 
                 if (Math.random() < 0.8) {
                     const roomResponses = responses[this.currentRoom] || responses.general;
@@ -1092,10 +1198,10 @@
                     // Sometimes add reactions to messages
                     if (Math.random() < 0.3) {
                         setTimeout(() => {
-                            const reactions = ['👍', '❤️', '😂'];
+                            const reactions = ['👍', '❤️', '😂', '🔥', '⚡', '🌟'];
                             const emoji = reactions[Math.floor(Math.random() * reactions.length)];
                             message.reactions[emoji] = Math.floor(Math.random() * 3) + 1;
-                            localStorage.setItem('chatMessages', JSON.stringify(this.messages));
+                            localStorage.setItem('chatterSphereMessages', JSON.stringify(this.messages));
                         }, 1000);
                     }
                     
@@ -1132,7 +1238,7 @@
                 indicator.className = 'typing-indicator';
                 indicator.innerHTML = `
                     <div class="message-avatar">💭</div>
-                    <div>Someone is typing
+                    <div>Someone is typing in the sphere
                         <div class="typing-dots">
                             <div class="typing-dot"></div>
                             <div class="typing-dot"></div>
@@ -1162,10 +1268,10 @@
             }
         }
         
-        // Initialize chat
-        let chat;
+        // Initialize ChatterSphere
+        let chatterSphere;
         document.addEventListener('DOMContentLoaded', () => {
-            chat = new UltimateChat();
+            chatterSphere = new ChatterSphere();
         });
     </script>
 </body>
